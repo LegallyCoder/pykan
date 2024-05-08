@@ -148,7 +148,7 @@ class KAN(nn.Module):
 
         self.biases = nn.ModuleList(self.biases)
         self.act_fun = nn.ModuleList(self.act_fun)
-
+        
         self.grid = grid
         self.k = k
         self.base_fun = base_fun
@@ -163,7 +163,9 @@ class KAN(nn.Module):
         self.symbolic_enabled = symbolic_enabled
         
         self.device = device
-
+        self.biases = nn.ModuleList(self.biases).to(device)
+        self.act_fun = nn.ModuleList(self.act_fun).to(device)
+        self.symbolic_fun = nn.ModuleList(self.symbolic_fun).to(device)
     def initialize_from_another_model(self, another_model, x):
         '''
         initialize from a parent model. The parent has the same width as the current model but may have different grids.
